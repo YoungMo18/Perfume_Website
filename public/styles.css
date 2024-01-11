@@ -1,0 +1,341 @@
+/*
+ * Name: Mo Young, Corbin Strong
+ * Date: December 11, 2023
+ * Section: CSE 154 AA
+ *
+ * This is the front-end styles.css file for our ecommerce site. It contains styling information
+ * and classes which are used in many different aspects of the site.
+ */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(255, 255, 255);
+  height: 65px;
+  box-shadow: 0px 0px 20px #2c512a;
+}
+
+h1 {
+  margin: 10px;
+}
+
+h2 {
+  font-size: 20px;
+}
+
+blockquote {
+  font-family: 'Indie Flower', cursive;
+  font-size: 20pt;
+}
+
+aside > button {
+  font-size: 15px;
+  padding-left: 40px;
+  padding-right: 40px;
+  border-radius: 5px;
+  position: absolute;
+  bottom: 0px;
+}
+
+#cart-confirmation, #checkout-message {
+  color: #2c512a;
+}
+
+header section {
+  padding: 5px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgb(110, 110, 110);
+  padding-right: 20px;
+  display: flex;
+  justify-content: space-evenly;
+  margin-right: 1%;
+}
+
+header section > a:hover {
+  text-decoration: underline;
+}
+
+#cart-contents {
+  width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#cart-items {
+  display: block;
+  width: 1200px;
+}
+
+header h1 {
+  font-family: 'Raleway', sans-serif;
+  font-size: 15pt;
+  margin-left: 15px;
+}
+
+header section > a, p {
+  font-family: 'Raleway', sans-serif;
+  font-size: small;
+  color: black;
+  text-decoration: none;
+  margin: 10px;
+}
+
+#search-form {
+  display: flex;
+  justify-content: left;
+  margin-left: auto;
+  margin-right: auto;
+  width: 550px;
+  height: 36px;
+}
+
+#filter-options {
+  margin: 5px 5px 5px 0px;
+  height: 36px;
+}
+
+#search-btn {
+  height: 36px;
+  margin: 5px 5px 5px 0px;
+}
+
+#search-bar {
+  width: 500px;
+  height: 30px;
+  margin: 5px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#login-window, #create-acc-window {
+  margin-left: auto;
+  margin-right: auto;
+  width: 500px;
+  height: 50%;
+  margin-top: 50px;
+}
+
+#login-window input, #create-acc-window input {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+body {
+  background-attachment: fixed;
+  background-size: cover;
+  margin: 0;
+  padding: 0;
+}
+
+.list-view {
+  width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.list-view > div {
+  margin: 5px 0px 5px 0px;
+  background-color: whitesmoke;
+  border: 3px solid black;
+  padding: 5px;
+  max-width: 1193px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.list-view .order-container {
+  display: block;
+}
+
+.order-object {
+  display: flex;
+  justify-content: space-between;
+}
+
+.list-view img {
+  display: none;
+}
+
+.hidden, #product.hidden, #error-msg.hidden, #cart-place-order.hidden {
+  display: none;
+}
+
+.splash-box {
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  color: white;
+  font-weight: bold;
+  width: 1160px;
+  height: 60px;
+  padding: 20px;
+  text-align: left;
+  font-size: 72px;
+  background-color: #2c512a;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+#toggle-display-btn {
+  width: 100px;
+  display: block;
+}
+
+.card-view div {
+  width: 200px;
+  height: 250px;
+  background-color: whitesmoke;
+  padding: 5px;
+  border: 3px solid black;
+  font-size: 15px;
+  margin: 13px;
+}
+
+.card-view div * {
+  margin: 5px;
+}
+
+.card-view div img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 12.5px;
+  width: 175px;
+  height: 175px;
+}
+
+.card-view div p {
+  font-size: 15px;
+}
+
+#scroll-left {
+  margin-right: -2px;
+  opacity: 50%;
+}
+
+#scroll-left:hover {
+  opacity: 100%;
+}
+
+#scroll-right {
+  margin-left: -2px;
+  opacity: 50%;
+}
+
+#scroll-right:hover {
+  opacity: 100%;
+}
+
+#create-acc-nav {
+  color: blue;
+}
+
+#create-acc-nav:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.card-view {
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  flex-wrap: wrap;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+input[type="text"], input[type="password"], input[type="email"] {
+  width: 250px;
+  height: 50px;
+  margin: 5px;
+  border-radius: 4px;
+}
+
+input[type="number"] {
+  width: 25px;
+}
+
+#login-error, #checkout-error {
+  color: red;
+  font-size: 10px;
+}
+
+#home-btn:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+#product {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#product * {
+  margin: 5px;
+}
+
+#product div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#product-img {
+  width: 500px;
+  height: 500px;
+}
+
+#product-genres {
+  color: darkgray;
+}
+
+#product-desc {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+#product-quantity {
+  color: #2c512a;
+  font-weight: 600;
+}
+
+#product-header {
+  height: 40px;
+  font-size: 40px;
+}
+
+#add-to-cart {
+  width: 100px;
+}
+
+#main-holder div:hover {
+  cursor: pointer;
+  border-color: #2c512a;
+}
+
+#product-price {
+  font-size: 15px;
+  height: 15px;
+}
+
+#redirect-txt {
+  font-size: 20px;
+  color: #2c512a;
+}
+
+#error-msg {
+  display: block;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  font-size: 20px;
+  color: red;
+  text-align: center;
+}

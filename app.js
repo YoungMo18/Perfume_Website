@@ -3,8 +3,8 @@
  * Date: December 11, 2023
  * Section: CSE 154 AA
  *
- * This is the server-side aspect of the textbook E-commerce website. It contains
- * the API endponts that grabs or changes the contents inside of the bookDB database. It also
+ * This is the server-side aspect of the perfume E-commerce website. It contains
+ * the API endponts that grabs or changes the contents inside of the perfumeDB database. It also
  * manages the cookies of the website.
  */
 
@@ -27,7 +27,10 @@ app.use(cookieParser());
 const INVALID_PARAM_ERROR = 400;
 const SERVER_ERROR = 500;
 
-// This endpoint grabs all the items in the books table (inventory)
+// app.get("/hi", async function(req, res) {
+//   console.log("hello");
+// });
+// This endpoint grabs all the items in the perfumes table (inventory)
 app.get("/all", async function(req, res) {
   try {
     let all = await getAll();
@@ -35,6 +38,7 @@ app.get("/all", async function(req, res) {
   } catch (err) {
     res.status(SERVER_ERROR)
       .send("An error occurred on the server. Try again later.");
+    console.log(err);
   }
 });
 
@@ -93,12 +97,12 @@ app.get("/logout", function(req, res) {
     .send("Logged out");
 });
 
-// This endpoint grabs the info of a book based on its ID
-app.get("/book/:id", async function(req, res) {
-  let bookid = req.params.id;
+// This endpoint grabs the info of a perfume based on its ID     // IM ON THIS SECTION
+app.get("/perfume/:id", async function(req, res) {
+  let perfumeid = req.params.id;
   try {
-    let book = await getBook(bookid);
-    res.json(book);
+    let perfume = await getPerfume(perfumeid);
+    res.json(perfume);
   } catch (err) {
     res.status(SERVER_ERROR).type("text")
       .send("An error occurred on the server. Try again later.");
@@ -138,26 +142,10 @@ app.get("/buy", async function(req, res) {
 
 // This endpoint allows the user to filter and search for an item
 app.post("/search", async function(req, res) {
-  if (req.body.search && req.body.filter) {
-    try {
-      let results = await searchAndFilter(req.body.search, req.body.filter);
-      res.json(results);
-    } catch (err) {
-      res.status(SERVER_ERROR).type("text")
-        .send("An error occurred on the server. Try again later.");
-    }
-  } else if (req.body.search) {
+  if (req.body.search) {
     try {
       let searchResult = await searchFunc(req.body.search);
       res.json(searchResult);
-    } catch (err) {
-      res.status(SERVER_ERROR).type("text")
-        .send("An error occurred on the server. Try again later.");
-    }
-  } else if (req.body.filter) {
-    try {
-      let filterResult = await filterFunc(req.body.filter);
-      res.json(filterResult);
     } catch (err) {
       res.status(SERVER_ERROR).type("text")
         .send("An error occurred on the server. Try again later.");
@@ -166,6 +154,34 @@ app.post("/search", async function(req, res) {
     res.status(INVALID_PARAM_ERROR).type("text")
       .send("Missing one or more of the required params.");
   }
+  // if (req.body.search && req.body.filter) {
+  //   try {
+  //     let results = await searchAndFilter(req.body.search, req.body.filter);
+  //     res.json(results);
+  //   } catch (err) {
+  //     res.status(SERVER_ERROR).type("text")
+  //       .send("An error occurred on the server. Try again later.");
+  //   }
+  // } else if (req.body.search) {
+  //   try {
+  //     let searchResult = await searchFunc(req.body.search);
+  //     res.json(searchResult);
+  //   } catch (err) {
+  //     res.status(SERVER_ERROR).type("text")
+  //       .send("An error occurred on the server. Try again later.");
+  //   }
+  // } else if (req.body.filter) {
+  //   try {
+  //     let filterResult = await filterFunc(req.body.filter);
+  //     res.json(filterResult);
+  //   } catch (err) {
+  //     res.status(SERVER_ERROR).type("text")
+  //       .send("An error occurred on the server. Try again later.");
+  //   }
+  // } else {
+  //   res.status(INVALID_PARAM_ERROR).type("text")
+  //     .send("Missing one or more of the required params.");
+  // }
 });
 
 // This endpoint grabs the purchase history of a user
@@ -214,11 +230,11 @@ app.post("/newUser", async function(req, res) {
 
 // This endpoint allows the user to add item(s) to a cart
 app.post("/cart", async function(req, res) {
-  let bookid = req.body.bookid;
+  let perfumeid = req.body.perfumeid;
   let quantity = req.body.quantity;
-  if (bookid && quantity) {
+  if (perfumeid && quantity) {
     try {
-      await addCart(bookid, quantity);
+      await addCart(perfumeid, quantity);
       res.type("text")
         .send("Succesfully added to cart");
     } catch (err) {
@@ -253,6 +269,8 @@ app.get("/cart/clear", async function(req, res) {
   }
 });
 
+app
+
 /**
  * This function checks if a user already exist
  * @param {string} username - username of user
@@ -272,7 +290,7 @@ async function checkUsername(username) {
  * @returns {Array} - contains result of search
  */
 async function searchFunc(search) {
-  let qry = "SELECT * FROM books WHERE name LIKE ? OR author LIKE ? OR description LIKE ?";
+  let qry = "SELECT * FROM perfumes WHERE name LIKE ? OR company LIKE ? OR description LIKE ?";
   let db = await getDBConnection();
   let searchParam = "%" + search + "%";
   let searchResult = await db.all(qry, [searchParam, searchParam, searchParam]);
@@ -286,7 +304,7 @@ async function searchFunc(search) {
  * @returns {Array} - contains result of filtering
  */
 async function filterFunc(filter) {
-  let qry = "SELECT * FROM books WHERE genres = ?";
+  let qry = "SELECT * FROM perfumes WHERE size = ?"; // CHANGE THIS LATER TOO // MIGHT need to convert string to numeric later
   let db = await getDBConnection();
   let filteredResult = await db.all(qry, filter.toLowerCase());
   await db.close();
@@ -299,9 +317,9 @@ async function filterFunc(filter) {
  * @param {string} filter - filter input by user
  * @returns {Array} - contains result after filtering and searching
  */
-async function searchAndFilter(search, filter) {
-  let qry = "SELECT * FROM books WHERE genres = ? AND " +
-  "(name LIKE ? OR author LIKE ? OR description LIKE ?)";
+async function searchAndFilter(search, filter) { //CHANGE THIS LATER TOO
+  let qry = "SELECT * FROM perfumes WHERE size = ? AND " +
+  "(name LIKE ? OR company LIKE ? OR description LIKE ?)";
   let db = await getDBConnection();
   let searchParam = "%" + search + "%";
   let filterParam = filter.toLowerCase();
@@ -311,39 +329,39 @@ async function searchAndFilter(search, filter) {
 }
 
 /**
- * This function grabs information of all books. It contains no parameters
- * @returns {Array} - contains information of all books
+ * This function grabs information of all perfumes. It contains no parameters
+ * @returns {Array} - contains information of all perfumes
  */
 async function getAll() {
-  let qry = "SELECT book_id, name, price FROM books";
+  let qry = "SELECT perfume_id, name, price, size, company, image FROM perfumes ORDER BY RANDOM()";
   let db = await getDBConnection();
-  let books = await db.all(qry);
+  let perfumes = await db.all(qry);
   await db.close();
-  return books;
+  return perfumes;
 }
 
 /**
- * This function grabs the book info based on its ID
- * @param {number} bookID - ID of book
- * @returns {Promise} - contains info of books
+ * This function grabs the perfume info based on its ID
+ * @param {number} perfumeID - ID of perfume
+ * @returns {Promise} - contains info of perfumes
  */
-async function getBook(bookID) {
+async function getPerfume(perfumeID) {
   let db = await getDBConnection();
-  let qry = "SELECT * FROM books WHERE book_id =?";
-  let bookInfo = await db.get(qry, bookID);
+  let qry = "SELECT * FROM perfumes WHERE perfume_id =?";
+  let perfumeInfo = await db.get(qry, perfumeID);
   await db.close();
-  return bookInfo;
+  return perfumeInfo;
 }
 
 /**
  * This function allows the user to add item(s) to cart. It contains no return statements.
- * @param {number} bookID - ID of book
+ * @param {number} perfumeID - ID of perfume
  * @param {number} quantity - number of item(s)
  */
-async function addCart(bookID, quantity) {
-  let qry = "INSERT INTO cart (book_id, quantity) VALUES (?, ?)";
+async function addCart(perfumeID, quantity) {
+  let qry = "INSERT INTO cart (perfume_id, quantity) VALUES (?, ?)";
   let db = await getDBConnection();
-  await db.run(qry, [bookID, quantity]);
+  await db.run(qry, [perfumeID, quantity]);
   await db.close();
 }
 
@@ -366,9 +384,9 @@ async function createAccount(username, password, email) {
  * @returns {Array} - contains history information
  */
 async function getHistory(userID) {
-  let qry = "SELECT purchase_id, user_id, purchase_history.book_id, purchase_history.quantity, " +
-    "date, name, price, description, genres, author FROM purchase_history, books " +
-    "WHERE purchase_history.book_id = books.book_id AND user_id =? ORDER BY date DESC";
+  let qry = "SELECT purchase_id, user_id, purchase_history.perfume_id, purchase_history.quantity, " +
+    "date, name, price, size, description, company FROM purchase_history, perfumes " +
+    "WHERE purchase_history.perfume_id = perfumes.perfume_id AND user_id =? ORDER BY date DESC";
   let db = await getDBConnection();
   let purchaseHistory = await db.all(qry, userID);
   await db.close();
@@ -412,27 +430,27 @@ async function confirmOrder(cart, username) {
   let getConfirm = await generateConfirmation(confirmID);
   let getID = await getUserInfo(username);
   for (let i = 0; i < cart.length; i++) {
-    let bookID = cart[i]["book_id"];
+    let perfumeID = cart[i]["perfume_id"];
     let quantity = cart[i]["quantity"];
-    await updateHistory(getConfirm, getID["user_id"], bookID, quantity);
+    await updateHistory(getConfirm, getID["user_id"], perfumeID, quantity);
   }
   return getConfirm;
 }
 
 /**
- * This function updates the inventory in the books table. It contains no return statements.
+ * This function updates the inventory in the perfumes table. It contains no return statements.
  * @param {Array} cart - contains all item(s)
  */
 async function updateInventory(cart) {
   let db = await getDBConnection();
-  let qry = "SELECT quantity FROM books WHERE book_id =?";
-  let updateQRY = "UPDATE books SET quantity = quantity - ? WHERE book_id =?";
+  let qry = "SELECT quantity FROM perfumes WHERE perfume_id =?";
+  let updateQRY = "UPDATE perfumes SET quantity = quantity - ? WHERE perfume_id =?";
   for (let i = 0; i < cart.length; i++) {
-    let bookID = cart[i]["book_id"];
+    let perfumeID = cart[i]["perfume_id"];
     let quantity = cart[i]["quantity"];
-    let bookQuantity = await db.get(qry, bookID);
-    if (bookQuantity["quantity"] !== -1) {
-      await db.run(updateQRY, [quantity, bookID]);
+    let perfumeQuantity = await db.get(qry, perfumeID);
+    if (perfumeQuantity["quantity"] !== -1) {
+      await db.run(updateQRY, [quantity, perfumeID]);
     }
   }
   await db.close();
@@ -444,14 +462,14 @@ async function updateInventory(cart) {
  * @returns {string} - checks if there are any errors or not
  */
 async function checkInventory(cart) {
-  let qry = "SELECT quantity FROM books WHERE book_id =?";
+  let qry = "SELECT quantity FROM perfumes WHERE perfume_id =?";
   let db = await getDBConnection();
   let check = "";
   for (let i = 0; i < cart.length; i++) {
-    let bookID = cart[i]["book_id"];
+    let perfumeID = cart[i]["perfume_id"];
     let quantity = cart[i]["quantity"];
-    let bookQuantity = await db.get(qry, bookID);
-    if ((bookQuantity["quantity"] < quantity) && (bookQuantity["quantity"] !== -1)) {
+    let perfumeQuantity = await db.get(qry, perfumeID);
+    if ((perfumeQuantity["quantity"] < quantity) && (perfumeQuantity["quantity"] !== -1)) {
       check = "error";
     }
   }
@@ -463,14 +481,14 @@ async function checkInventory(cart) {
  * This function updates the user's purchase history. It has no return statements
  * @param {number} confirmID - contain confirmation number
  * @param {number} userID - contains user's ID
- * @param {number} bookID - contains book's ID
+ * @param {number} perfumeID - contains perfume's ID
  * @param {number} quantity - contains number of item(s)
  */
-async function updateHistory(confirmID, userID, bookID, quantity) {
-  let qry = "INSERT INTO purchase_history (purchase_id, user_id, book_id, quantity) " +
+async function updateHistory(confirmID, userID, perfumeID, quantity) {
+  let qry = "INSERT INTO purchase_history (purchase_id, user_id, perfume_id, quantity) " +
     "VALUES (?, ?, ?, ?)";
   let db = await getDBConnection();
-  await db.run(qry, [confirmID, userID, bookID, quantity]);
+  await db.run(qry, [confirmID, userID, perfumeID, quantity]);
   await db.close();
 }
 
@@ -479,8 +497,8 @@ async function updateHistory(confirmID, userID, bookID, quantity) {
  * @returns {Array} - contains item(s) in the cart
  */
 async function getCart() {
-  let qry = "SELECT cart.book_id, cart.quantity, name, price, author FROM cart, books " +
-  "WHERE cart.book_id = books.book_id";
+  let qry = "SELECT cart.perfume_id, cart.quantity, name, price, company, size FROM cart, perfumes " +
+  "WHERE cart.perfume_id = perfumes.perfume_id";
   let db = await getDBConnection();
   let cart = await db.all(qry);
   await db.close();
@@ -529,7 +547,7 @@ function generateRandomWord(length) {
  */
 async function getDBConnection() {
   const db = await sqlite.open({
-    filename: 'bookDB.db',
+    filename: 'perfumeDB.db',
     driver: sqlite3.Database
   });
   return db;

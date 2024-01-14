@@ -8,15 +8,24 @@
  */
 header {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
   background-color: rgb(255, 255, 255);
-  height: 65px;
-  box-shadow: 0px 0px 20px #2c512a;
+  height: 75px;
+  box-shadow: 0px 0px 20px #000000;
 }
 
-h1 {
-  margin: 10px;
+a {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 20pt;
+  margin-left: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  color: black;
+}
+
+a:hover {
+  cursor: pointer;
 }
 
 h2 {
@@ -24,18 +33,34 @@ h2 {
 }
 
 blockquote {
-  font-family: 'Indie Flower', cursive;
+  /* font-family: 'Indie Flower', cursive; */
   font-size: 20pt;
 }
 
-aside > button {
+header section button {
+  font-family: 'Raleway', sans-serif;
+  font-size: medium;
+  color: black;
+  text-decoration: none;
+  margin-left: 15px;
+  padding: 0;
+  border: none;
+  background: none;
+  margin-right: 5px;
+}
+
+header section button:hover {
+  text-decoration: underline;
+}
+
+/* aside > button {
   font-size: 15px;
   padding-left: 40px;
   padding-right: 40px;
   border-radius: 5px;
   position: absolute;
   bottom: 0px;
-}
+} */
 
 #cart-confirmation, #checkout-message {
   color: #2c512a;
@@ -43,9 +68,9 @@ aside > button {
 
 header section {
   padding: 5px;
-  border-width: 1px;
+  border-width: 0;
   border-style: solid;
-  border-color: rgb(110, 110, 110);
+  /* border-color: rgb(110, 110, 110); */
   padding-right: 20px;
   display: flex;
   justify-content: space-evenly;
@@ -67,12 +92,12 @@ header section > a:hover {
   display: block;
   width: 1200px;
 }
-
+/*
 header h1 {
   font-family: 'Raleway', sans-serif;
-  font-size: 15pt;
+  font-size: 20pt;
   margin-left: 15px;
-}
+} */
 
 header section > a, p {
   font-family: 'Raleway', sans-serif;
@@ -83,6 +108,7 @@ header section > a, p {
 }
 
 #search-form {
+  font-family: 'Raleway', sans-serif;
   display: flex;
   justify-content: left;
   margin-left: auto;
@@ -92,21 +118,39 @@ header section > a, p {
 }
 
 #filter-options {
+  font-family: 'Raleway', sans-serif;
   margin: 5px 5px 5px 0px;
-  height: 36px;
+  height: 37px;
+  border-radius: 0%;
 }
 
 #search-btn {
-  height: 36px;
+  font-family: 'Raleway', sans-serif;
+  height: 37px;
   margin: 5px 5px 5px 0px;
+  border-radius: 0%;
+  border-width: 1px;
+  /* border-color: rgb(110, 110, 110); */
+  background: none;
+}
+#logged-in-message {
+  font-family: 'Raleway', sans-serif;
+  font-size: 16px;
 }
 
 #search-bar {
   width: 500px;
-  height: 30px;
-  margin: 5px;
-  margin-left: auto;
-  margin-right: auto;
+  height: 33px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  padding-left: 12px;
+  border-width: 1px;
+  border-style: solid;
+  /* border-color: rgb(110, 110, 110); */
+  padding-right: 20px;
+  display: flex;
+  justify-content: space-evenly;
+  border-radius: 0%;
 }
 
 #login-window, #create-acc-window {
@@ -163,20 +207,26 @@ body {
 }
 
 .splash-box {
-  margin-top: 10px;
   margin-left: auto;
   margin-right: auto;
-  color: white;
+  color: black;
   font-weight: bold;
   width: 1160px;
-  height: 60px;
-  padding: 20px;
-  text-align: left;
-  font-size: 72px;
-  background-color: #2c512a;
+  height: 80px;
+  padding-top: 25px;
+  padding-bottom: 20px;
+  /* text-align: left; */
+  font-size: 100px;
   display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  justify-content: center;
+  /* flex-wrap: wrap; */
+}
+
+.splash-box h2 {
+  font-size: 40px;
+  font-family: "Hedvig Letters Serif", serif;
+  font-weight: 300;
+  font-style: normal;
 }
 
 #toggle-display-btn {
@@ -187,16 +237,16 @@ body {
 .card-view div {
   width: 200px;
   height: 250px;
-  background-color: whitesmoke;
-  padding: 5px;
-  border: 3px solid black;
+  background-color: white;
+  padding-left: 5%;
+  border: 0px solid grey;
   font-size: 15px;
   margin: 13px;
 }
 
-.card-view div * {
+/* .card-view div * {
   margin: 5px;
-}
+} */
 
 .card-view div img {
   display: block;
@@ -239,16 +289,17 @@ body {
 }
 
 .card-view {
-  width: 80%;
+  /* width: 80%; */
   display: flex;
   align-items: center;
   justify-content: left;
   flex-wrap: wrap;
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: 10%;
+  margin-right: 5%;
 }
 
 input[type="text"], input[type="password"], input[type="email"] {
+  font-family: 'Raleway', sans-serif;
   width: 250px;
   height: 50px;
   margin: 5px;
@@ -264,64 +315,121 @@ input[type="number"] {
   font-size: 10px;
 }
 
-#home-btn:hover {
-  text-decoration: underline;
+/* #home-btn:hover {
   cursor: pointer;
-}
+} */
 
 #product {
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: center; */
+  margin-top: 100px;
+  margin-left: 20%;
 }
 
 #product * {
-  margin: 5px;
+  /* margin: 5px; */
 }
 
 #product div {
+  /* display: flex;
+  justify-content: space-between;
+  align-items: center; */
+}
+
+.product-view {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+}
+
+.product-view article {
+  font-family: "Source Serif 4", serif;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: start; */
+  align-items: start;
+  margin-right: 10%;
 }
 
 #product-img {
-  width: 500px;
-  height: 500px;
+  width: 400px;
+  height: 600px;
+  margin-right: 10%;
 }
 
-#product-genres {
+#product-size {
   color: darkgray;
 }
 
 #product-desc {
-  font-weight: bold;
-  font-size: 20px;
+  font-family: "Source Serif 4", serif;
+  margin-left: 0px;
+  font-size: 16px;
+  font-weight: 300;
 }
 
 #product-quantity {
+  margin-left: 0px;
+  margin-bottom: 10px;
   color: #2c512a;
   font-weight: 600;
 }
 
+#product-quantity-input {
+  border-radius: 0px;
+  border-width: 1px;
+}
+
 #product-header {
+  margin-bottom: 5px;
   height: 40px;
-  font-size: 40px;
+  font-size: 30px;
+}
+
+#product-price {
+  font-family: "Source Serif 4", serif;
+  margin-left: 0px;
+  font-size: 15px;
+  font-weight: 150;
+}
+
+#product-company {
+  margin-top: 0px;
+  font-weight: lighter;
 }
 
 #add-to-cart {
-  width: 100px;
+  margin-top: 30px;
+  margin-bottom: 70px;
+  height: 50px;
+  width: 300px;
+  border-radius: 0px;
+  border-width: 1px;
+  background-color: black;
+  color: white;
+  font-size: 20px;
+  font-weight: 150;
+
+}
+
+#add-to-cart:hover {
+  transition-duration: 700ms;
+  background-color: white;
+  color: black;
+}
+
+#main-holder div {
+  height: 350px;
+}
+
+#main-holder div img {
+  height: 250px;
 }
 
 #main-holder div:hover {
   cursor: pointer;
   border-color: #2c512a;
-}
-
-#product-price {
-  font-size: 15px;
-  height: 15px;
 }
 
 #redirect-txt {
@@ -338,4 +446,15 @@ input[type="number"] {
   font-size: 20px;
   color: red;
   text-align: center;
+}
+
+#cardTitle {
+  font-family: "Hedvig Letters Serif", serif;
+  font-weight: 1000;
+}
+
+#cardText {
+  font-family: "Source Serif 4", serif;
+  font-weight: 300;
+  /* font-weight: lighter; */
 }

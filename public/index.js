@@ -3,11 +3,11 @@
  * Date: December 11, 2023
  * Section: CSE 154 AA
  *
- * This is the client side javascript file for our Textbook e-commerce website. It calls the app.js
+ * This is the client side javascript file for our Perfume e-commerce website. It calls the app.js
  * server in order to access a database of information used for the following main functionality:
  * 1. Account login and creation
- * 2. Displaying information about textbooks available and searching/filtering through them
- * 3. Checking out books in a bulk (cart) order
+ * 2. Displaying information about perfumes available and searching/filtering through them
+ * 3. Checking out perfumes in a bulk (cart) order
  * 4. Viewing the order history for a signed in user
  */
 'use strict';
@@ -22,10 +22,10 @@
   async function init() {
     qs("#cart-btn").addEventListener("click", cartView);
     id("login-form").addEventListener("submit", requestLogin);
-    id("toggle-display-btn").addEventListener("click", toggleDisplay);
+    //id("toggle-display-btn").addEventListener("click", toggleDisplay);
     id("acc-btn").addEventListener("click", accountView);
-    fetchAllBooks();
-    id("home-btn").addEventListener("click", homeView);
+    fetchAllPerfumes();
+    id("store-btn").addEventListener("click", storeView);
     id("search-form").addEventListener("submit", conductSearch);
     id("create-acc-nav").addEventListener("click", createAccView);
     if (window.sessionStorage.getItem("loggedIn") === "true") {
@@ -60,49 +60,57 @@
   }
 
   /**
-   * Fetches all books in the database
+   * Fetches all perfumes in the database
    * It contains no parameters or return statements.
    */
-  function fetchAllBooks() {
+  function fetchAllPerfumes() {
     fetch("/all")
       .then(statusCheck)
       .then(resp => resp.json())
-      .then(populateHome)
+      .then(populateStore)
       .catch(handleError);
   }
 
   /**
-   * Populates home with all of the books given by the promise and their information. This function
+   * Populates store with all of the perfumes given by the promise and their information. This function
    * has no return statement.
-   * @param {Promise} res - A JSON promise containing info about a set of books
+   * @param {Promise} res - A JSON promise containing info about a set of perfumes
    */
-  function populateHome(res) {
+  function populateStore(res) {
     id("main-holder").innerHTML = "";
     res.forEach((e) => {
       let div = document.createElement("div");
       let img = document.createElement("img");
-      let title = document.createElement("p");
+      let companyName = document.createElement("p");
+      let productName = document.createElement("p");
       let price = document.createElement("p");
-      title.textContent = e.name;
+      companyName.setAttribute("id", "cardTitle");
+      companyName.textContent = e.company;
+      productName.textContent = e.name + " (" + e.size + " oz)";
+      productName.setAttribute("id", "cardText");
       price.textContent = "$" + e.price;
+      price.setAttribute("id", "cardText");
+      img.src = e.image;
+      img.alt = e.name + " image";
       div.appendChild(img);
-      div.appendChild(title);
+      div.appendChild(companyName);
+      div.appendChild(productName);
       div.appendChild(price);
       div.classList.add("card");
-      div.id = e.book_id;
+      div.id = e.perfume_id;
       div.addEventListener("click", fetchProductInfo);
       id("main-holder").appendChild(div);
     });
   }
 
   /**
-   * Obtains information about a book with an id matching the id of the html element which was
+   * Obtains information about a perfume with an id matching the id of the html element which was
    * clicked to call this function. This function will only ever be called as a result of a click
    * event listener.
    * This function contains no parameters or return statements.
    */
   function fetchProductInfo() {
-    fetch("/book/" + this.id)
+    fetch("/perfume/" + this.id)
       .then(statusCheck)
       .then(resp => resp.json())
       .then(productView)
@@ -115,7 +123,7 @@
    */
   function createAccView() {
     clearInputs("#create-acc");
-    id("home").classList.add("hidden");
+    id("store").classList.add("hidden");
     id("login").classList.add("hidden");
     id("cart").classList.add("hidden");
     id("product").classList.add("hidden");
@@ -153,7 +161,7 @@
   }
 
   /**
-   * Briefly displays a message post-checkout before returning the user to the home page
+   * Briefly displays a message post-checkout before returning the user to the store page
    * This function contains no parameters or return statements.
    */
   function checkoutMessage() {
@@ -164,7 +172,7 @@
       qs("#checkout-message").classList.add("hidden");
       qs("#buy-btn").classList.remove("hidden");
       qs("#cancel-btn").classList.remove("hidden");
-      homeView();
+      storeView();
     }, 3000);
   }
 
@@ -179,38 +187,40 @@
   }
 
   /**
-   * Swaps to a product view containing author, quantity, price, etc. of a book.
+   * Swaps to a product view containing company, quantity, price, etc. of a perfume.
    * This function has no return statment.
-   * @param {Promise} res - A JSON promise containing data about a given book
+   * @param {Promise} res - A JSON promise containing data about a given perfume
    */
   function productView(res) {
     id("product-quantity-input").classList.remove("hidden");
     id("quantity-label").classList.remove("hidden");
-    id("product-header").textContent = res.name + " by " + res.author;
-    id("product-genres").textContent = res.genres;
+    id("product-img").src = res.image;
+    id("product-img").alt = res.name + " image";
+    id("product-header").textContent = res.name + " (" + res.size + " oz)";
+    id("product-company").textContent = res.company;
     id("product-price").textContent = "$" + res.price;
-    id("product-desc").textContent = res.description;
+    id("product-desc").textContent = "Description: " + res.description;
     id("product-quantity-input").value = "1";
-    id("product-quantity").textContent = res.quantity === 0 ? "out of stock" : "only " +
+    id("product-quantity").textContent = res.quantity === 0 ? "Out of stock" : "Only " +
     res.quantity + " left in stock";
     if (res.quantity === 0) {
       id("product-quantity").textContent = "out of stock";
       hideQuantityInput();
       id("add-to-cart").classList.add("hidden");
     } else if (res.quantity < 0) {
-      id("product-quantity").textContent = "E-Book";
+      id("product-quantity").textContent = "E-Perfume";
       hideQuantityInput();
     } else {
-      id("product-quantity").textContent = "only " + res.quantity + " left in stock";
+      id("product-quantity").textContent = "Only " + res.quantity + " left in stock";
       id("product-quantity-input").max = res.quantity;
       id("add-to-cart").classList.remove("hidden");
     }
     id("product").classList.remove("hidden");
-    id("home").classList.add("hidden");
+    id("store").classList.add("hidden");
     id("cart").classList.add("hidden");
     id("login").classList.add("hidden");
     id("create-acc").classList.add("hidden");
-    id("add-to-cart").value = res.book_id;
+    id("add-to-cart").value = res.perfume_id;
   }
 
   /**
@@ -223,14 +233,14 @@
   }
 
   /**
-   * Passes a book id and a quantity to the server for adding to the cart. This function has no
+   * Passes a perfume id and a quantity to the server for adding to the cart. This function has no
    * return statement.
    * @param {Event} event - The submit event which triggers this function
    */
   function addItemToCart(event) {
     event.preventDefault();
     let params = new FormData(id("add-to-cart-form"));
-    params.set("bookid", qs("#add-to-cart").value);
+    params.set("perfumeid", qs("#add-to-cart").value);
     fetch("/cart", {method: "POST", body: params})
       .then(statusCheck)
       .then(resp => resp.text())
@@ -259,36 +269,36 @@
     event.preventDefault();
     if (id("search-bar").value.trim() !== "") {
       let params = new FormData(id("search-form"));
-      id("home").classList.remove("hidden");
+      id("store").classList.remove("hidden");
       id("cart").classList.add("hidden");
       id("login").classList.add("hidden");
       id("product").classList.add("hidden");
       id("create-acc").classList.add("hidden");
       id("account").classList.add("hidden");
-      qs("#home h2").textContent = "Search results for '" + id("search-bar").value.trim() + "'";
+      qs("#store h2").textContent = "Search results for '" + id("search-bar").value.trim() + "'";
       clearInputs("#search-form");
       fetch("/search", {method: "POST", body: params})
         .then(statusCheck)
         .then(resp => resp.json())
-        .then(populateHome)
+        .then(populateStore)
         .catch(handleError);
     }
 
   }
 
   /**
-   * Swaps to the home view and populates it with all books
+   * Swaps to the store view and populates it with all perfumes
    * This function contains no parameters or return statements.
    */
-  function homeView() {
-    id("home").classList.remove("hidden");
+  function storeView() {
+    id("store").classList.remove("hidden");
     id("cart").classList.add("hidden");
     id("login").classList.add("hidden");
     id("product").classList.add("hidden");
     id("create-acc").classList.add("hidden");
     id("account").classList.add("hidden");
-    qs("#home h2").textContent = "All Products";
-    fetchAllBooks();
+    qs("#store h2").textContent = "All Products";
+    fetchAllPerfumes();
   }
 
   /**
@@ -299,12 +309,12 @@
     if (window.sessionStorage.getItem("loggedIn") === "true") {
       let userCookie = await cookieStore.get("username");
       qs("#account h2").textContent = userCookie.value + "'s Purchase History";
-      id("home").classList.add("hidden");
+      id("store").classList.add("hidden");
       id("cart").classList.add("hidden");
       id("login").classList.add("hidden");
       id("product").classList.add("hidden");
       id("create-acc").classList.add("hidden");
-      qs("#home h2").textContent = "All Products";
+      qs("#store h2").textContent = "All Products";
       id("account").classList.remove("hidden");
       fetch("/history")
         .then(statusCheck)
@@ -314,7 +324,7 @@
     } else {
       clearInputs("#login");
       id("remember-me").checked = false;
-      id("home").classList.add("hidden");
+      id("store").classList.add("hidden");
       id("cart").classList.add("hidden");
       id("login").classList.remove("hidden");
       id("product").classList.add("hidden");
@@ -345,7 +355,7 @@
       let orderObject = document.createElement("div");
       orderObject.classList.add("order-object");
       let orderTitle = document.createElement("p");
-      orderTitle.textContent = e.name + " by " + e.author;
+      orderTitle.textContent = e.name + " by " + e.company;
       let orderQuantity = document.createElement("p");
       orderQuantity.textContent = "Q: " + e.quantity;
       let orderPrice = document.createElement("p");
@@ -383,16 +393,18 @@
   }
 
   /**
-   * Swaps between card and list view in the home tab
+   * Swaps between card and list view in the store tab
    * This function contains no parameters or return statements.
    */
-  function toggleDisplay() {
-    let isListTarget = this.value === "list";
-    this.textContent = isListTarget ? "Card View" : "List View";
-    this.value = isListTarget ? "card" : "list";
-    id("main-holder").classList.toggle("list-view");
-    id("main-holder").classList.toggle("card-view");
-  }
+  // function toggleDisplay() {
+  //   let isListTarget = this.value === "list";
+  //   this.textContent = isListTarget ? "Card View" : "List View";
+  //   this.value = isListTarget ? "card" : "list";
+  //   // this.textContent = "Card View";
+  //   // this.value = "card";
+  //   id("main-holder").classList.toggle("list-view");
+  //   id("main-holder").classList.toggle("card-view");
+  // }
 
   /**
    * Sends login details (username and password) from the login form to the server for validation.
@@ -424,7 +436,7 @@
       window.localStorage.removeItem("username");
     }
     window.sessionStorage.setItem("loggedIn", "true");
-    homeView();
+    storeView();
   }
 
   /**
@@ -474,9 +486,8 @@
       .catch(handleError);
     id("logged-in-message").textContent = "";
     id("logout-btn").classList.add("hidden");
-    homeView();
+    storeView();
     window.sessionStorage.clear();
-    window.localStorage.clear();
   }
 
   /**
@@ -503,7 +514,7 @@
    * This function contains no parameters or return statements.
    */
   function cartView() {
-    qs("#home").classList.add("hidden");
+    qs("#store").classList.add("hidden");
     qs("#cart").classList.remove("hidden");
     qs("#login").classList.add("hidden");
     id("product").classList.add("hidden");
@@ -541,7 +552,7 @@
       let orderObject = document.createElement("div");
       orderObject.classList.add("order-object");
       let orderTitle = document.createElement("p");
-      orderTitle.textContent = cartItem.name + " by " + cartItem.author;
+      orderTitle.textContent = cartItem.name + " by " + cartItem.company;
       let orderPrice = document.createElement("p");
       orderPrice.textContent = "Q: " + cartItem.quantity +
       "        $" + (cartItem.price * cartItem.quantity).toFixed(2);

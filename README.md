@@ -1,1 +1,1 @@
-This is my Perfume Eccomerce Website for my portfolio. 
+<img width="1512" alt="Screen Shot 2024-01-15 at 11 57 04 PM" src="https://github.com/YoungMo18/Perfume_Website/assets/97260958/943c2515-d260-40c0-91ea-c005b63baac3">This is my Perfume Eccomerce Website for my portfolio. 

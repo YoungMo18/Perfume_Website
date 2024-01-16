@@ -1,5 +1,7 @@
-This is my Perfume Eccomerce Full-Stack Website for my portfolio. It implements HTML5, CSS, Javascript, NodeJS, and SQL.
+<b>This is my Perfume Eccomerce Full-Stack Website for my portfolio. It implements HTML5, CSS, Javascript, NodeJS, and SQL.<b>
 
+Front Page
+<img width="1510" alt="Screen Shot 2024-01-16 at 12 43 13 AM" src="https://github.com/YoungMo18/Perfume_Website/assets/97260958/e0ff036f-4fb6-4d74-b3ac-03c9476b4e13">
 
 Shopping Page
 <img width="1512" alt="Screen Shot 2024-01-15 at 11 57 04 PM" src="https://github.com/YoungMo18/Perfume_Website/assets/97260958/943c2515-d260-40c0-91ea-c005b63baac3">

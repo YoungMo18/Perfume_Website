@@ -130,6 +130,7 @@
     id("error-msg").classList.add("hidden");
     qs("#checkout-error").classList.add("hidden");
     id("account").classList.add("hidden");
+    id("shop-btn").addEventListener("click", storeView);
     // document.body.setAttribute("background-image", "url('img/perfumeWallpaper.jpg')");
   }
 

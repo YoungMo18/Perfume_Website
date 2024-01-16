@@ -489,7 +489,7 @@ input[type="number"] {
   /* font-weight: lighter; */
 }
 
-#login-btn, #create-acc-btn, #confirm-btn {
+#login-btn, #create-acc-btn, #confirm-btn, #shop-btn {
   height: 50px;
   width: 300px;
   border-radius: 0px;
@@ -500,7 +500,7 @@ input[type="number"] {
   font-weight: 150;
 }
 
-#login-btn:hover, #create-acc-btn:hover, #confirm-btn:hover {
+#login-btn:hover, #create-acc-btn:hover, #confirm-btn:hover, #shop-btn:hover {
   transition-duration: 500ms;
   background-color: white;
   color: black;
@@ -544,4 +544,29 @@ input[type="number"] {
 
 #clear-cart-btn {
   margin-left: 5px;
+}
+
+#title-phrase {
+  position: absolute;
+  height: 70%;
+  top: 25%;
+  /* right: 30%; */
+  left: 62%;
+  width: 30%;
+  color: black;
+
+  /* background-color: red; */
+}
+
+#title-phrase h1 {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 80px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  font-weight: 600;
+  margin-left: 0px;
+}
+
+#shop-btn {
+  margin-top: 40px;
 }

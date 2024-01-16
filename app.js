@@ -1,7 +1,5 @@
 /*
- * Name: Mo Young, Corbin Strong
- * Date: December 11, 2023
- * Section: CSE 154 AA
+ * Name: Mo Young
  *
  * This is the server-side aspect of the perfume E-commerce website. It contains
  * the API endponts that grabs or changes the contents inside of the perfumeDB database. It also

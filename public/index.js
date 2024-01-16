@@ -1,9 +1,7 @@
 /*
- * Name: Mo Young, Corbin Strong
- * Date: December 11, 2023
- * Section: CSE 154 AA
+ * Name: Mo Young
  *
- * This is the client side javascript file for our Perfume e-commerce website. It calls the app.js
+ * This is the client side javascript file for the Perfume e-commerce website. It calls the app.js
  * server in order to access a database of information used for the following main functionality:
  * 1. Account login and creation
  * 2. Displaying information about perfumes available and searching/filtering through them

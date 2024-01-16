@@ -1,14 +1,11 @@
 /*
- * Name: Mo Young, Corbin Strong
- * Date: December 11, 2023
- * Section: CSE 154 AA
+ * Name: Mo Young
  *
- * This is the front-end styles.css file for our ecommerce site. It contains styling information
+ * This is the front-end styles.css file for the ecommerce site. It contains styling information
  * and classes which are used in many different aspects of the site.
  */
 header {
   display: flex;
-  /* justify-content: space-between; */
   align-items: center;
   background-color: rgb(255, 255, 255);
   height: 75px;
@@ -345,22 +342,8 @@ input[type="number"] {
 } */
 
 #product {
-  /* display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center; */
   margin-top: 100px;
   margin-left: 20%;
-}
-
-#product * {
-  /* margin: 5px; */
-}
-
-#product div {
-  /* display: flex;
-  justify-content: space-between;
-  align-items: center; */
 }
 
 .product-view {
@@ -372,7 +355,6 @@ input[type="number"] {
   font-family: "Source Serif 4", serif;
   display: flex;
   flex-direction: column;
-  /* justify-content: start; */
   align-items: start;
   margin-right: 10%;
 }

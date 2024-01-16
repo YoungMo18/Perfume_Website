@@ -12,10 +12,10 @@ header {
   align-items: center;
   background-color: rgb(255, 255, 255);
   height: 75px;
-  box-shadow: 0px 0px 20px #000000;
+  box-shadow: 0px 0px 1px #000000;
 }
 
-a {
+h1 {
   font-family: "Cormorant Garamond", serif;
   font-size: 20pt;
   margin-left: 15px;
@@ -24,7 +24,7 @@ a {
   color: black;
 }
 
-a:hover {
+h1:hover {
   cursor: pointer;
 }
 
@@ -47,6 +47,13 @@ header section button {
   border: none;
   background: none;
   margin-right: 5px;
+}
+
+body {
+  /* background-image: url("img/perfumeWallpaper.jpg"); */
+  background-attachment: fixed;
+  background-size: cover;
+  margin: 0;
 }
 
 header section button:hover {
@@ -82,10 +89,9 @@ header section > a:hover {
 }
 
 #cart-contents {
-  width: 1200px;
+  max-width: 1200px;
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
 #cart-items {
@@ -154,9 +160,13 @@ header section > a, p {
 }
 
 #login-window, #create-acc-window {
-  margin-left: auto;
-  margin-right: auto;
-  width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* margin-left: auto;
+  margin-right: auto; */
+  /* width: 500px; */
+  justify-content: left;
   height: 50%;
   margin-top: 50px;
 }
@@ -164,6 +174,13 @@ header section > a, p {
 #login-window input, #create-acc-window input {
   margin-left: auto;
   margin-right: auto;
+}
+
+
+#login-window p {
+  font-family: "Source Serif 4", serif;
+  font-size: 20px;
+  font-weight: 450;
 }
 
 body {
@@ -179,7 +196,7 @@ body {
   margin-right: auto;
 }
 
-.list-view > div {
+/* .list-view > div {
   margin: 5px 0px 5px 0px;
   background-color: whitesmoke;
   border: 3px solid black;
@@ -187,15 +204,21 @@ body {
   max-width: 1193px;
   display: flex;
   justify-content: space-between;
-}
+} */
 
-.list-view .order-container {
-  display: block;
+.order-container {
+  /* display: block; */
+  margin-top: 5px;
+  border-radius: 0%;
+  border-width: 2px;
+  max-width: 1200px;
+  border-color: rgb(110, 110, 110);
 }
 
 .order-object {
   display: flex;
-  justify-content: space-between;
+  max-width: 1200px;
+  /* justify-content: space-between; */
 }
 
 .list-view img {
@@ -207,19 +230,14 @@ body {
 }
 
 .splash-box {
-  margin-left: auto;
-  margin-right: auto;
   color: black;
   font-weight: bold;
-  width: 1160px;
   height: 80px;
   padding-top: 25px;
   padding-bottom: 20px;
-  /* text-align: left; */
   font-size: 100px;
   display: flex;
   justify-content: center;
-  /* flex-wrap: wrap; */
 }
 
 .splash-box h2 {
@@ -279,15 +297,6 @@ body {
   opacity: 100%;
 }
 
-#create-acc-nav {
-  color: blue;
-}
-
-#create-acc-nav:hover {
-  cursor: pointer;
-  text-decoration: underline;
-}
-
 .card-view {
   /* width: 80%; */
   display: flex;
@@ -300,10 +309,11 @@ body {
 
 input[type="text"], input[type="password"], input[type="email"] {
   font-family: 'Raleway', sans-serif;
-  width: 250px;
+  width: 300px;
   height: 50px;
   margin: 5px;
-  border-radius: 4px;
+  border-width: 1px;
+  border-radius: 0px;
 }
 
 input[type="number"] {
@@ -313,6 +323,21 @@ input[type="number"] {
 #login-error, #checkout-error {
   color: red;
   font-size: 10px;
+}
+
+#login-form label {
+  font-family: "Source Serif 4", serif;
+  font-size: 13px;
+  font-weight: 310;
+}
+
+#login-form p, #create-acc-form p {
+  font-family: "Source Serif 4", serif;
+  font-size: 16px;
+  font-weight: 350;
+  margin-top: 15px;
+  margin-bottom: 0;
+  margin-left: 0;
 }
 
 /* #home-btn:hover {
@@ -399,6 +424,11 @@ input[type="number"] {
   font-weight: lighter;
 }
 
+#add-to-cart-form {
+  display: flex;
+  flex-direction: column;
+}
+
 #add-to-cart {
   margin-top: 30px;
   margin-bottom: 70px;
@@ -414,7 +444,7 @@ input[type="number"] {
 }
 
 #add-to-cart:hover {
-  transition-duration: 700ms;
+  transition-duration: 500ms;
   background-color: white;
   color: black;
 }
@@ -457,4 +487,61 @@ input[type="number"] {
   font-family: "Source Serif 4", serif;
   font-weight: 300;
   /* font-weight: lighter; */
+}
+
+#login-btn, #create-acc-btn, #confirm-btn {
+  height: 50px;
+  width: 300px;
+  border-radius: 0px;
+  border-width: 1px;
+  background-color: black;
+  color: white;
+  font-size: 20px;
+  font-weight: 150;
+}
+
+#login-btn:hover, #create-acc-btn:hover, #confirm-btn:hover {
+  transition-duration: 500ms;
+  background-color: white;
+  color: black;
+}
+
+#sign-up-btn, #clear-cart-btn {
+  height: 50px;
+  width: 300px;
+  border-radius: 0px;
+  border-width: 1px;
+  background-color: white;
+  color: black;
+  font-size: 20px;
+  font-weight: 150;
+}
+
+#sign-up-btn:hover, #clear-cart-btn:hover {
+  transition-duration: 500ms;
+  background-color: black;
+  color: white;
+}
+
+#order-title {
+  align-self: first baseline;
+  width: 50%
+}
+
+#order-quantity {
+  align-self: center;
+  width: 35%
+}
+
+#order-price {
+  align-self: last baseline;
+}
+
+#cart-checkout {
+  display: flex;
+  justify-content: space-between;
+}
+
+#clear-cart-btn {
+  margin-left: 5px;
 }

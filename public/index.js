@@ -20,14 +20,16 @@
    * It contains no parameters or return statements.
    */
   async function init() {
+    homeView();
     qs("#cart-btn").addEventListener("click", cartView);
     id("login-form").addEventListener("submit", requestLogin);
+    id("home-btn").addEventListener("click", homeView);
     //id("toggle-display-btn").addEventListener("click", toggleDisplay);
     id("acc-btn").addEventListener("click", accountView);
     fetchAllPerfumes();
     id("store-btn").addEventListener("click", storeView);
     id("search-form").addEventListener("submit", conductSearch);
-    id("create-acc-nav").addEventListener("click", createAccView);
+    id("sign-up-btn").addEventListener("click", createAccView);
     if (window.sessionStorage.getItem("loggedIn") === "true") {
       id("acc-btn").textContent = "Account";
       let userCookie = await cookieStore.get("username");
@@ -37,27 +39,27 @@
     id("logout-btn").addEventListener("click", logout);
     id("create-acc-form").addEventListener("submit", submitNewAcc);
     id("add-to-cart-form").addEventListener("submit", addItemToCart);
-    id("buy-btn").addEventListener("click", attemptCheckout);
+    id("confirm-btn").addEventListener("click", attemptCheckout);
     id("clear-cart-btn").addEventListener("click", clearCart);
-    id("confirm-btn").addEventListener("click", showSubmitOptions);
-    id("cancel-btn").addEventListener("click", cancelSubmissionOptions);
+    // id("confirm-btn").addEventListener("click", showSubmitOptions);
+    // id("cancel-btn").addEventListener("click", cancelSubmissionOptions);
   }
 
-  /**
-   * Shows the cart submission options (cancel or submit).
-   * This function contains no parameters or return statements.
-   */
-  function showSubmitOptions() {
-    id("cart-place-order").classList.remove("hidden");
-  }
+  // /**
+  //  * Shows the cart submission options (cancel or submit).
+  //  * This function contains no parameters or return statements.
+  //  */
+  // function showSubmitOptions() {
+  //   id("cart-place-order").classList.remove("hidden");
+  // }
 
-  /**
-   * Hides the cart submission options.
-   * This function contains no parameters or return statements.
-   */
-  function cancelSubmissionOptions() {
-    id("cart-place-order").classList.add("hidden");
-  }
+  // /**
+  //  * Hides the cart submission options.
+  //  * This function contains no parameters or return statements.
+  //  */
+  // function cancelSubmissionOptions() {
+  //   id("cart-place-order").classList.add("hidden");
+  // }
 
   /**
    * Fetches all perfumes in the database
@@ -117,17 +119,35 @@
       .catch(handleError);
   }
 
+  function homeView() {
+    document.body.style.backgroundImage = "url('img/wallpaper4.jpg')";
+    id("home").classList.remove("hidden");
+    id("store").classList.add("hidden");
+    id("login").classList.add("hidden");
+    id("cart").classList.add("hidden");
+    id("product").classList.add("hidden");
+    id("create-acc").classList.add("hidden");
+    id("error-msg").classList.add("hidden");
+    qs("#checkout-error").classList.add("hidden");
+    id("account").classList.add("hidden");
+    // document.body.setAttribute("background-image", "url('img/perfumeWallpaper.jpg')");
+  }
+
   /**
    * Switches the page view to the create account form
    * This function contains no parameters or return statements.
    */
   function createAccView() {
+    document.body.style.backgroundImage = "none";
     clearInputs("#create-acc");
+    id("home").classList.add("hidden");
     id("store").classList.add("hidden");
     id("login").classList.add("hidden");
     id("cart").classList.add("hidden");
     id("product").classList.add("hidden");
     id("create-acc").classList.remove("hidden");
+    qs("#checkout-error").classList.add("hidden");
+    id("error-msg").classList.add("hidden");
     id("create-acc-error").textContent = "";
   }
 
@@ -165,15 +185,15 @@
    * This function contains no parameters or return statements.
    */
   function checkoutMessage() {
-    qs("#buy-btn").classList.add("hidden");
-    qs("#cancel-btn").classList.add("hidden");
+    // qs("#buy-btn").classList.add("hidden");
+    // qs("#cancel-btn").classList.add("hidden");
     qs("#checkout-message").classList.remove("hidden");
     setTimeout(function() {
       qs("#checkout-message").classList.add("hidden");
-      qs("#buy-btn").classList.remove("hidden");
-      qs("#cancel-btn").classList.remove("hidden");
+      // qs("#buy-btn").classList.remove("hidden");
+      // qs("#cancel-btn").classList.remove("hidden");
       storeView();
-    }, 3000);
+    }, 500);
   }
 
   /**
@@ -192,6 +212,7 @@
    * @param {Promise} res - A JSON promise containing data about a given perfume
    */
   function productView(res) {
+    document.body.style.backgroundImage = "none";
     id("product-quantity-input").classList.remove("hidden");
     id("quantity-label").classList.remove("hidden");
     id("product-img").src = res.image;
@@ -215,6 +236,7 @@
       id("product-quantity-input").max = res.quantity;
       id("add-to-cart").classList.remove("hidden");
     }
+    id("home").classList.add("hidden");
     id("product").classList.remove("hidden");
     id("store").classList.add("hidden");
     id("cart").classList.add("hidden");
@@ -239,6 +261,7 @@
    */
   function addItemToCart(event) {
     event.preventDefault();
+    console.log("test");
     let params = new FormData(id("add-to-cart-form"));
     params.set("perfumeid", qs("#add-to-cart").value);
     fetch("/cart", {method: "POST", body: params})
@@ -269,12 +292,16 @@
     event.preventDefault();
     if (id("search-bar").value.trim() !== "") {
       let params = new FormData(id("search-form"));
+      document.body.style.backgroundImage = "none";
+      id("home").classList.add("hidden");
       id("store").classList.remove("hidden");
       id("cart").classList.add("hidden");
       id("login").classList.add("hidden");
       id("product").classList.add("hidden");
       id("create-acc").classList.add("hidden");
       id("account").classList.add("hidden");
+      qs("#checkout-error").classList.add("hidden");
+      id("error-msg").classList.add("hidden");
       qs("#store h2").textContent = "Search results for '" + id("search-bar").value.trim() + "'";
       clearInputs("#search-form");
       fetch("/search", {method: "POST", body: params})
@@ -291,12 +318,16 @@
    * This function contains no parameters or return statements.
    */
   function storeView() {
+    document.body.style.backgroundImage = "none";
     id("store").classList.remove("hidden");
+    id("home").classList.add("hidden");
     id("cart").classList.add("hidden");
     id("login").classList.add("hidden");
     id("product").classList.add("hidden");
     id("create-acc").classList.add("hidden");
     id("account").classList.add("hidden");
+    qs("#checkout-error").classList.add("hidden");
+    id("error-msg").classList.add("hidden");
     qs("#store h2").textContent = "All Products";
     fetchAllPerfumes();
   }
@@ -309,11 +340,15 @@
     if (window.sessionStorage.getItem("loggedIn") === "true") {
       let userCookie = await cookieStore.get("username");
       qs("#account h2").textContent = userCookie.value + "'s Purchase History";
+      document.body.style.backgroundImage = "none";
+      id("home").classList.add("hidden");
       id("store").classList.add("hidden");
       id("cart").classList.add("hidden");
       id("login").classList.add("hidden");
       id("product").classList.add("hidden");
       id("create-acc").classList.add("hidden");
+      qs("#checkout-error").classList.add("hidden");
+      id("error-msg").classList.add("hidden");
       qs("#store h2").textContent = "All Products";
       id("account").classList.remove("hidden");
       fetch("/history")
@@ -324,11 +359,15 @@
     } else {
       clearInputs("#login");
       id("remember-me").checked = false;
+      document.body.style.backgroundImage = "none";
+      id("home").classList.add("hidden");
       id("store").classList.add("hidden");
       id("cart").classList.add("hidden");
       id("login").classList.remove("hidden");
       id("product").classList.add("hidden");
       id("create-acc").classList.add("hidden");
+      qs("#checkout-error").classList.add("hidden");
+      id("error-msg").classList.add("hidden");
       id("login-error").textContent = "";
       if (window.localStorage.getItem("username")) {
         id("username").value = window.localStorage.getItem("username");
@@ -355,10 +394,13 @@
       let orderObject = document.createElement("div");
       orderObject.classList.add("order-object");
       let orderTitle = document.createElement("p");
+      orderTitle.id = "order-title";
       orderTitle.textContent = e.name + " by " + e.company;
       let orderQuantity = document.createElement("p");
+      orderQuantity.id = "order-quantity";
       orderQuantity.textContent = "Q: " + e.quantity;
       let orderPrice = document.createElement("p");
+      orderPrice.id = "order-price";
       orderPrice.textContent = "$" + (e.price * e.quantity).toFixed(2);
       orderObject.appendChild(orderTitle);
       orderObject.appendChild(orderQuantity);
@@ -380,15 +422,16 @@
       qsa("." + orderID).forEach((priceText) => {
         orderTotal += parseFloat(priceText.textContent.replace("$", ""));
       });
-      let orderSumObject = document.createElement("div");
-      orderSumObject.classList.add("order-object");
-      order.appendChild(orderSumObject);
-      let orderSumText = document.createElement("p");
-      orderSumText.textContent = "TOTAL PRICE";
-      let orderSumPrice = document.createElement("p");
-      orderSumPrice.textContent = "$" + orderTotal;
-      orderSumObject.appendChild(orderSumText);
-      orderSumObject.appendChild(orderSumPrice);
+      // let orderSumObject = document.createElement("div");
+      // orderSumObject.classList.add("order-object");
+      // order.appendChild(orderSumObject);
+      // let orderSumText = document.createElement("p");
+      // orderSumText.textContent = "TOTAL PRICE";
+      // let orderSumPrice = document.createElement("p");
+      // orderSumPrice.textContent = "$" + orderTotal;
+      // orderSumObject.appendChild(orderSumText);
+      // orderSumObject.appendChild(orderSumPrice);
+      addTotal(order, orderTotal);
     });
   }
 
@@ -462,7 +505,7 @@
     setTimeout(function() {
       id("redirect-txt").classList.add("hidden");
       accountView();
-    }, 3000);
+    }, 500);
   }
 
   /**
@@ -514,14 +557,18 @@
    * This function contains no parameters or return statements.
    */
   function cartView() {
-    qs("#store").classList.add("hidden");
-    qs("#cart").classList.remove("hidden");
-    qs("#login").classList.add("hidden");
+    document.body.style.backgroundImage = "none";
+    id("home").classList.add("hidden");
+    id("store").classList.add("hidden");
+    id("cart").classList.remove("hidden");
+    id("login").classList.add("hidden");
     id("product").classList.add("hidden");
     id("create-acc").classList.add("hidden");
     id("account").classList.add("hidden");
     qs("#login-reminder").classList.add("hidden");
     id("cart-place-order").classList.add("hidden");
+    qs("#checkout-error").classList.add("hidden");
+    id("error-msg").classList.add("hidden");
     fetch("/cart/all")
       .then(statusCheck)
       .then(resp => resp.json())
@@ -536,13 +583,13 @@
    */
   function populateCart(res) {
     if (res.length === 0) {
-      qs("#cart h2").textContent = "Cart (Empty)";
-      qs("#buy-btn").classList.add("hidden");
+      qs("#cart h2").textContent = "Cart";
+      // qs("#buy-btn").classList.add("hidden");
       qs("#clear-cart-btn").classList.add("hidden");
       id("confirm-btn").classList.add("hidden");
     } else {
       qs("#cart h2").textContent = "Cart";
-      qs("#buy-btn").classList.remove("hidden");
+      // qs("#buy-btn").classList.remove("hidden");
       qs("#clear-cart-btn").classList.remove("hidden");
       id("confirm-btn").classList.remove("hidden");
     }
@@ -552,16 +599,42 @@
       let orderObject = document.createElement("div");
       orderObject.classList.add("order-object");
       let orderTitle = document.createElement("p");
+      orderTitle.id = "order-title";
       orderTitle.textContent = cartItem.name + " by " + cartItem.company;
+      let orderQuantity = document.createElement("p");
+      orderQuantity.id = "order-quantity";
+      orderQuantity.textContent = "Q: " + cartItem.quantity;
       let orderPrice = document.createElement("p");
-      orderPrice.textContent = "Q: " + cartItem.quantity +
-      "        $" + (cartItem.price * cartItem.quantity).toFixed(2);
+      orderPrice.id = "order-price";
+      orderPrice.textContent = "$" + (cartItem.price * cartItem.quantity).toFixed(2);
       orderObject.appendChild(orderTitle);
+      orderObject.appendChild(orderQuantity);
       orderObject.appendChild(orderPrice);
       qs("#cart-items").appendChild(orderObject);
       totalCost += parseFloat((cartItem.price * cartItem.quantity).toFixed(2));
     });
-    qs("#cart-total").textContent = "Total: $" + totalCost.toFixed(2);
+    // let orderSumObject = document.createElement("div");
+    // orderSumObject.classList.add("order-object");
+    // qs("#cart-items").appendChild(orderSumObject);
+    // let orderSumText = document.createElement("p");
+    // orderSumText.textContent = "TOTAL PRICE";
+    // let orderSumPrice = document.createElement("p");
+    // orderSumPrice.textContent = "$" + totalCost.toFixed(2);
+    // orderSumObject.appendChild(orderSumText);
+    // orderSumObject.appendChild(orderSumPrice);
+    addTotal(qs("#cart-items"), totalCost);
+  }
+
+  function addTotal(object, totalCost) {
+    let orderSumObject = document.createElement("div");
+    orderSumObject.classList.add("order-object");
+    object.appendChild(orderSumObject);
+    let orderSumText = document.createElement("p");
+    orderSumText.textContent = "TOTAL PRICE";
+    let orderSumPrice = document.createElement("p");
+    orderSumPrice.textContent = "$" + totalCost.toFixed(2);
+    orderSumObject.appendChild(orderSumText);
+    orderSumObject.appendChild(orderSumPrice);
   }
 
   /**

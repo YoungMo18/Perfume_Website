@@ -333,7 +333,7 @@ async function searchAndFilter(search, filter) { //CHANGE THIS LATER TOO
  * @returns {Array} - contains information of all perfumes
  */
 async function getAll() {
-  let qry = "SELECT perfume_id, name, price, size, company, image FROM perfumes ORDER BY RANDOM()";
+  let qry = "SELECT perfume_id, name, price, size, company, image FROM perfumes ORDER BY size";
   let db = await getDBConnection();
   let perfumes = await db.all(qry);
   await db.close();

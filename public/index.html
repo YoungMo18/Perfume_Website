@@ -25,8 +25,7 @@
   <body>
     <header>
       <!-- <h1>Accente Verde</h1> -->
-      <a href="frontpage.html">Accente Verde</a>
-      <p>THIS IS THE STORE PAGE</p>
+      <h1 id="home-btn">Accente Verde</h1>
       <form id="search-form">
         <!-- <select name="filter" id="filter-options">
           <option value="">All Sizes</option>
@@ -48,27 +47,31 @@
 
     <main>
       <span id="error-msg" class="hidden">Error text</span>
-      <div id="store">
+      <article id="home">
+
+      </article>
+      <article id="store" class="hidden">
         <section class="splash-box">
           <h2>
             All Products
           </h2>
-          <!-- <button id="toggle-display-btn" value="list">List View</button> -->
         </section>
         <section id="main-holder" class="card-view"></section>
-      </div>
-      <div id="cart" class="hidden">
+      </article>
+      <article id="cart" class="hidden">
         <section class="splash-box">
           <h2>
             Cart
           </h2>
-          <button id="clear-cart-btn">Empty Cart</button>
+          <!-- <button id="clear-cart-btn">Empty Cart</button> -->
         </section>
         <section id="cart-contents" class="list-view">
           <div id="cart-items">
           </div>
           <div id="cart-checkout">
-            <p id="cart-total"></p>
+            <!-- <p id="cart-total"></p> -->
+            <button id="clear-cart-btn">Empty Cart</button>
+            <br>
             <button type="button" id="confirm-btn">Confirm Order</button>
             <p id="checkout-error" class="hidden"></p>
             <p id="login-reminder" class="hidden">Please login to checkout</p>
@@ -81,8 +84,8 @@
             <button type="button" id="cancel-btn">Cancel Order</button>
           </div>
         </section>
-      </div>
-      <div id="login" class="hidden">
+      </article>
+      <article id="login" class="hidden">
         <section class="splash-box">
           <h2>Login</h2>
         </section>
@@ -99,10 +102,12 @@
             <p id="login-error"></p>
             <button id="login-btn">Login</button>
           </form>
-          <p>Don't have an account? <a id="create-acc-nav">Create one</a>.</p>
+          <!-- <p>Don't have an account? <a id="create-acc-nav">Create one</a>.</p> -->
+          <p>OR</p>
+          <button id="sign-up-btn">Sign Up</button>
         </section>
-      </div>
-      <div id="create-acc" class="hidden">
+      </article>
+      <article id="create-acc" class="hidden">
         <section class="splash-box">
           <h2>Create New Account</h2>
         </section>
@@ -122,8 +127,8 @@
             Account creation successful! Redirecting to login...
           </p>
         </section>
-      </div>
-      <div id="product" class="hidden">
+      </article>
+      <article id="product" class="hidden">
         <section class="product-view">
           <img id="product-img">
           <article>
@@ -134,19 +139,21 @@
             <form id="add-to-cart-form">
               <label for="product-quantity-input" id="quantity-label"></label>
               <input type="number" id="product-quantity-input" name="quantity" min="1" value="1">
+              <button id="add-to-cart" name="perfumeid">Add to Cart</button>
               <p id="cart-confirmation" class="hidden">Successfully added item to cart!</p>
             </form>
-            <button id="add-to-cart" name="perfumeid">Add to Cart</button>
+            <!-- <button id="add-to-cart" name="perfumeid">Add to Cart</button> -->
             <p id="product-desc"></p>
           </article>
         </section>
-      </div>
-      <div id="account" class="hidden">
+      </article>
+      <article id="account" class="hidden">
         <section class="splash-box">
           <h2></h2>
         </section>
         <section id="history-holder" class="list-view"></section>
-      </div>
+      </article>
+
     </main>
 
   </body>

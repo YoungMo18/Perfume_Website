@@ -1,4 +1,4 @@
-<b>This is my Perfume Eccomerce Full-Stack Website for my portfolio. It implements HTML5, CSS, Javascript, NodeJS, and SQL.<b>
+<h1>This is my Perfume Eccomerce Full-Stack Website for my portfolio. It implements HTML5, CSS, Javascript, NodeJS, and SQL.<h1></h1>
 
 Front Page
 <img width="1510" alt="Screen Shot 2024-01-16 at 12 43 13 AM" src="https://github.com/YoungMo18/Perfume_Website/assets/97260958/e0ff036f-4fb6-4d74-b3ac-03c9476b4e13">
@@ -8,6 +8,9 @@ Shopping Page
 
 Item Page
 <img width="1512" alt="Screen Shot 2024-01-15 at 11 56 31 PM" src="https://github.com/YoungMo18/Perfume_Website/assets/97260958/7ee507d4-2a41-4055-a5e7-aa61208a1e04">
+
+Search Item Page (ex: dior)
+<img width="1512" alt="Screen Shot 2024-01-16 at 12 46 10 AM" src="https://github.com/YoungMo18/Perfume_Website/assets/97260958/05e67c2f-a402-40bf-84ef-4732f2263922">
 
 Login Page
 <img width="1512" alt="Screen Shot 2024-01-15 at 11 56 43 PM" src="https://github.com/YoungMo18/Perfume_Website/assets/97260958/4c64393c-198c-4e6c-b0ae-b2c1293c00c3">

@@ -504,6 +504,7 @@ input[type="number"] {
   transition-duration: 500ms;
   background-color: white;
   color: black;
+  background-color: white;
 }
 
 #sign-up-btn, #clear-cart-btn {
@@ -565,6 +566,13 @@ input[type="number"] {
   margin-top: 10px;
   font-weight: 600;
   margin-left: 0px;
+  transition:
+    transform 1s ease-in-out,
+    background-color .5s linear;
+}
+
+#title-phrase h1:hover {
+  transform: translateX(150px);
 }
 
 #shop-btn {
